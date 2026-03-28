@@ -1,21 +1,8 @@
-# Pocket Slide ：幻灯片/演示文稿开发模块
+# 幻灯片/演示文稿开发模块 Pocket Slide
 
-基于 PocketStack 的幻灯片/演示文稿开发模块。不同于 slidev、reveal.js 等工具，该项目以AI友好为原则，非常适合以 Vibe Coding 的方式开发演示文稿项目。
+该模块可以创建多个演示文稿，每个演示文稿可以包含多个幻灯片。
 
-## 特性
-
-- **幻灯片操作** - 基于 React 的演示文稿组件，支持全屏、键盘导航
-- **URL 状态同步** - 分页状态自动同步到 URL，刷新后保持位置
-- **响应式布局** - 适配不同屏幕尺寸，支持全屏展示
-- **自定义背景** - 支持任意图片作为幻灯片背景，打造个性化演示风格
-- **主题模式** - 支持浅色/深色/系统主题切换，适应不同使用场景
-- **主题颜色** - 支持主题颜色定制（蓝色/绿色/红色/灰度），灵活适配品牌色
-- **模糊效果** - 支持背景模糊和透明度设置，增强视觉层次感
-- **AI IDE 开发** - 支持通过 AI IDE 快速创建幻灯片
-
-## 文件目录结构
-
-该组件可以创建多个演示文稿，每个演示文稿可以包含多个幻灯片。
+## 目录结构
 
 每个演示文稿的目录放在`src/modules/slides/`目录下，每个目录对应一个演示文稿。
 
@@ -111,19 +98,6 @@ import ContentSlide from '@/modules/slides/components/ContentSlide';
 | backgroundOpacity | `number` | 背景透明度，0-100，默认 50 |
 | backgroundBlur | `number` | 背景模糊程度，单位 px，默认 0 |
 
-## 使用说明
-
-### 键盘操作
-
-- `→` 或 `↓`：下一页
-- `←` 或 `↑`：上一页
-- `Esc`：退出全屏
-
-### 点击操作
-
-- 左右箭头按钮：翻页
-- 全屏按钮：进入/退出全屏
-
 ## 示例
 
 参考 `src/modules/slides/example/` 目录下的示例文件。
@@ -167,68 +141,3 @@ function MyPresentation() {
   </ContentSlide>
 </SlidesViewer>
 ```
-
-## URL 参数
-
-SlidesViewer 自动将当前分页同步到 URL 参数 `?slide=N`，刷新页面后会自动恢复到之前的分页位置。
-
-## AI IDE 开发
-
-通过 AI IDE（如 Trae），你可以快速创建幻灯片演示：
-
-1. 在 `src/modules/slides/` 下创建项目目录
-2. 编写提示词，向 AI 描述幻灯片内容
-3. AI 自动生成代码，刷新页面即可预览
-
-```tsx
-// 示例：创建一页"项目成果"幻灯片
-import ContentSlide from '@/modules/slides/components/ContentSlide';
-
-export default function ProjectResults() {
-  return (
-    <ContentSlide title="项目成果">
-      <div className="grid grid-cols-3 gap-4">
-        <div className="p-4 rounded-lg border bg-card">
-          <h4>成果一</h4>
-          <p>成果描述</p>
-        </div>
-        <div className="p-4 rounded-lg border bg-card">
-          <h4>成果二</h4>
-          <p>成果描述</p>
-        </div>
-        <div className="p-4 rounded-lg border bg-card">
-          <h4>成果三</h4>
-          <p>成果描述</p>
-        </div>
-      </div>
-    </ContentSlide>
-  );
-}
-```
-
-## 主题切换
-
-幻灯片支持主题模式和主题颜色切换，使用项目中的 `ThemeProvider` 和 `ModeToggle` 组件：
-
-```tsx
-import { useTheme } from '@/components/theme-provider';
-
-function ThemeSwitcher() {
-  const { theme, setTheme, colorTheme, setColorTheme } = useTheme();
-
-  return (
-    <div>
-      {/* 切换主题模式：light / dark / system */}
-      <button onClick={() => setTheme('dark')}>深色模式</button>
-
-      {/* 切换主题颜色：blue / green / red / gray */}
-      <button onClick={() => setColorTheme('blue')}>蓝色主题</button>
-    </div>
-  );
-}
-```
-## PocketStack
-
-本项目基于 PocketStack 开发。 PocketStack 是一款 AI 友好的全栈开发框架。
-
-http://github.com/citywill/pocket-stack
