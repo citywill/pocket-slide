@@ -1,4 +1,4 @@
-import { SparklesIcon, PhotoIcon, SunIcon, PaintBrushIcon, RectangleStackIcon, DocumentTextIcon } from '@heroicons/react/24/outline';
+import { SparklesIcon, PhotoIcon, SunIcon, PaintBrushIcon, RectangleStackIcon, DocumentTextIcon, ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
 import ContentSlide from '../components/ContentSlide';
 
 export default function PocketSlideIntro() {
@@ -34,6 +34,18 @@ export default function PocketSlideIntro() {
               </div>
             ))}
           </div>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <a
+            href="https://github.com/citywill/pocket-slide"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-primary/30 bg-primary/10 text-primary hover:bg-primary/20 transition-colors"
+          >
+            <ArrowTopRightOnSquareIcon className="size-5" />
+            <span className="font-medium">github.com/citywill/pocket-slide</span>
+          </a>
         </div>
       </div>
     </ContentSlide>
