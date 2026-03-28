@@ -1,4 +1,4 @@
-# Pocket Slide ：幻灯片/演示文稿开发模块
+# PocketSlide ：幻灯片/演示文稿开发模块
 
 基于 PocketStack 的幻灯片/演示文稿开发模块。不同于 slidev、reveal.js 等工具，该项目以AI友好为原则，非常适合以 Vibe Coding 的方式开发演示文稿项目。
 
@@ -13,25 +13,79 @@
 - **模糊效果** - 支持背景模糊和透明度设置，增强视觉层次感
 - **AI IDE 开发** - 支持通过 AI IDE 快速创建幻灯片
 
-## 文件目录结构
+## 快速开始
 
-该组件可以创建多个演示文稿，每个演示文稿可以包含多个幻灯片。
+### 环境要求
 
-每个演示文稿的目录放在`src/modules/slides/`目录下，每个目录对应一个演示文稿。
+- Node.js 18.0.0+
+- npm 9.0.0+
 
-- `src/modules/slides/components/` - 组件目录
-  - `CoverSlide.tsx` - 封面幻灯片组件
-  - `ContentSlide.tsx` - 内容幻灯片组件
-  - `SlidesViewer.tsx` - 幻灯片查看器组件
-  - `Logo.tsx` - Logo 组件
-- `src/modules/slides/slidename/` - 演示文稿目录
-  - `index.tsx` - 演示文稿首页
-  - `Slide1.tsx` - 第一页幻灯片
-  - `Slide2.tsx` - 第二页幻灯片
-- `menu.ts` - 导航菜单组件
-- `routes.tsx` - 路由配置
+### 安装部署
 
-## 组件
+```bash
+# 克隆项目
+git clone https://github.com/citywill/pocket-slide.git
+
+# 安装依赖
+npm install
+
+# 启动开发服务器
+npm run dev
+
+# 打开浏览器
+http://localhost:5173
+```
+
+### 创建幻灯片项目
+
+按照以下三个步骤，快速创建你的幻灯片演示。
+
+#### 1. 创建幻灯片目录
+
+在 `src/modules/slides/` 下创建模块目录：
+
+```
+src/modules/slides/
+  你的项目/
+    Index.tsx
+    你的幻灯片1.tsx
+    你的幻灯片2.tsx
+```
+
+#### 2. 创建幻灯片
+
+使用 CoverSlide 或 ContentSlide 组件：
+
+```tsx
+import ContentSlide from '../components/ContentSlide';
+
+export default function MySlide() {
+  return (
+    <ContentSlide title="我的标题">
+      <p>内容</p>
+    </ContentSlide>
+  );
+}
+```
+
+#### 3. 创建首页，组织幻灯片
+
+在 Index.tsx 中组合所有幻灯片：
+
+```tsx
+import SlidesViewer from '../components/SlidesViewer';
+import MySlide from './MySlide';
+
+export default function Index() {
+  return (
+    <SlidesViewer>
+      <MySlide />
+    </SlidesViewer>
+  );
+}
+```
+
+## 核心组件
 
 ### SlidesViewer
 
@@ -124,7 +178,184 @@ import ContentSlide from '@/modules/slides/components/ContentSlide';
 - 左右箭头按钮：翻页
 - 全屏按钮：进入/退出全屏
 
-## 示例
+## 背景图片参数
+
+三个组件都支持背景图片相关参数：
+
+| 参数名 | 类型 | 默认值 | 说明 |
+|--------|------|--------|------|
+| backgroundImage | `string` | - | 背景图片 URL 地址 |
+| backgroundOpacity | `number` | `50` | 透明度，0-100，值越小越透明 |
+| backgroundBlur | `number` | `0` | 模糊程度，0 为不模糊，单位 px |
+
+### 使用示例
+
+```tsx
+// 基础用法
+<ContentSlide title="标题" backgroundImage="/bg.jpg">
+
+// 调整透明度
+<CoverSlide title="标题" backgroundImage="/bg.jpg" backgroundOpacity={30} />
+
+// 添加模糊
+<ContentSlide title="标题" backgroundImage="/bg.jpg" backgroundBlur={8}>
+  <p>带模糊背景的内容页</p>
+</ContentSlide>
+```
+
+### 全局背景设置
+
+通过 SlidesViewer 可以设置全局背景，所有幻灯片都会继承：
+
+```tsx
+<SlidesViewer backgroundImage="https://example.com/bg.jpg" backgroundOpacity={20}>
+  <YourSlide />
+</SlidesViewer>
+```
+
+## Logo 组件
+
+### 组件位置
+
+Logo 组件位于 `src/modules/slides/components/Logo.tsx`
+
+### 组件属性
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| className | `string` | 自定义样式（如位置、大小） |
+| src | `string` | logo 图片路径（可选） |
+
+### 全局传参方式
+
+通过 SlidesViewer 的 `logoSrc` 属性统一设置所有幻灯片的 logo 图片：
+
+```tsx
+<SlidesViewer logoSrc="/logo.svg">
+  <YourSlide />
+</SlidesViewer>
+```
+
+### Context 机制
+
+SlidesViewer 使用 React Context 提供 logoSrc，CoverSlide 和 ContentSlide 通过 `useLogoSrc()` hook 获取值。
+
+## 主题配置
+
+### 主题模式
+
+支持三种主题模式：浅色模式、深色模式、系统模式
+
+```tsx
+import { useTheme } from '@/components/theme-provider';
+
+function ThemeSwitcher() {
+  const { theme, setTheme } = useTheme();
+
+  // 切换主题模式
+  setTheme('light');  // 浅色模式
+  setTheme('dark');   // 深色模式
+  setTheme('system'); // 系统模式
+}
+```
+
+### 主题颜色
+
+支持四种主题颜色：蓝色、绿色、红色、灰度
+
+```tsx
+import { useTheme } from '@/components/theme-provider';
+
+function ColorThemeSwitcher() {
+  const { colorTheme, setColorTheme } = useTheme();
+
+  // 切换主题颜色
+  setColorTheme('blue');  // 蓝色 - 专业沉稳
+  setColorTheme('green'); // 绿色 - 活力自然
+  setColorTheme('red');   // 红色 - 热情活力
+  setColorTheme('gray');  // 灰度 - 简约低调
+}
+```
+
+### 实现说明
+
+- **主题模式**：使用 CSS 类名 `light` / `dark` 切换
+- **主题颜色**：通过 CSS 变量 `color-blue` / `color-green` 等切换
+- **组件**：`ThemeProvider` 提供主题上下文
+- **切换组件**：`ModeToggle` 支持交互切换
+
+## 图标使用
+
+项目使用 Heroicons 图标库，支持 outline 和 solid 两种风格。
+
+### Outline 风格
+
+```tsx
+import { StarIcon, HeartIcon, BoltIcon } from '@heroicons/react/24/outline';
+
+// 使用
+<StarIcon className="size-6 text-primary" />
+```
+
+### Solid 风格
+
+```tsx
+import { StarIcon } from '@heroicons/react/24/solid';
+
+// 使用
+<StarIcon className="size-6 text-primary" />
+```
+
+## AI IDE 开发
+
+通过 AI IDE（如 Trae），你可以快速创建幻灯片演示：
+
+### 开发流程
+
+1. **创建幻灯片目录** - 在 `src/modules/slides/` 下创建项目目录
+
+2. **编写并提交提示词** - 向 AI 描述幻灯片内容，或直接发送提示词
+
+3. **浏览幻灯片** - AI 自动生成代码，刷新页面即可预览
+
+### 示例提示词
+
+```
+创建一页"项目成果"幻灯片，包含标题和三个成果展示区块
+```
+
+### 示例代码
+
+```tsx
+import ContentSlide from '@/modules/slides/components/ContentSlide';
+
+export default function ProjectResults() {
+  return (
+    <ContentSlide title="项目成果">
+      <div className="grid grid-cols-3 gap-4">
+        <div className="p-4 rounded-lg border bg-card">
+          <h4>成果一</h4>
+          <p>成果描述</p>
+        </div>
+        <div className="p-4 rounded-lg border bg-card">
+          <h4>成果二</h4>
+          <p>成果描述</p>
+        </div>
+        <div className="p-4 rounded-lg border bg-card">
+          <h4>成果三</h4>
+          <p>成果描述</p>
+        </div>
+      </div>
+    </ContentSlide>
+  );
+}
+```
+
+## URL 参数
+
+SlidesViewer 自动将当前分页同步到 URL 参数 `?slide=N`，刷新页面后会自动恢复到之前的分页位置。
+
+## 完整示例
 
 参考 `src/modules/slides/example/` 目录下的示例文件。
 
@@ -153,80 +384,6 @@ function MyPresentation() {
 }
 ```
 
-### 使用背景图片
-
-```tsx
-<SlidesViewer backgroundImage="https://example.com/bg.jpg" backgroundOpacity={20}>
-  <CoverSlide
-    title="封面标题"
-    backgroundImage="https://example.com/cover-bg.jpg"
-    backgroundOpacity={30}
-  />
-  <ContentSlide title="内容页" backgroundBlur={8}>
-    <p>带模糊背景的内容页</p>
-  </ContentSlide>
-</SlidesViewer>
-```
-
-## URL 参数
-
-SlidesViewer 自动将当前分页同步到 URL 参数 `?slide=N`，刷新页面后会自动恢复到之前的分页位置。
-
-## AI IDE 开发
-
-通过 AI IDE（如 Trae），你可以快速创建幻灯片演示：
-
-1. 在 `src/modules/slides/` 下创建项目目录
-2. 编写提示词，向 AI 描述幻灯片内容
-3. AI 自动生成代码，刷新页面即可预览
-
-```tsx
-// 示例：创建一页"项目成果"幻灯片
-import ContentSlide from '@/modules/slides/components/ContentSlide';
-
-export default function ProjectResults() {
-  return (
-    <ContentSlide title="项目成果">
-      <div className="grid grid-cols-3 gap-4">
-        <div className="p-4 rounded-lg border bg-card">
-          <h4>成果一</h4>
-          <p>成果描述</p>
-        </div>
-        <div className="p-4 rounded-lg border bg-card">
-          <h4>成果二</h4>
-          <p>成果描述</p>
-        </div>
-        <div className="p-4 rounded-lg border bg-card">
-          <h4>成果三</h4>
-          <p>成果描述</p>
-        </div>
-      </div>
-    </ContentSlide>
-  );
-}
-```
-
-## 主题切换
-
-幻灯片支持主题模式和主题颜色切换，使用项目中的 `ThemeProvider` 和 `ModeToggle` 组件：
-
-```tsx
-import { useTheme } from '@/components/theme-provider';
-
-function ThemeSwitcher() {
-  const { theme, setTheme, colorTheme, setColorTheme } = useTheme();
-
-  return (
-    <div>
-      {/* 切换主题模式：light / dark / system */}
-      <button onClick={() => setTheme('dark')}>深色模式</button>
-
-      {/* 切换主题颜色：blue / green / red / gray */}
-      <button onClick={() => setColorTheme('blue')}>蓝色主题</button>
-    </div>
-  );
-}
-```
 ## PocketStack
 
 本项目基于 PocketStack 开发。 PocketStack 是一款 AI 友好的全栈开发框架。

@@ -10,7 +10,7 @@ const installSteps = [
   {
     icon: ArrowDownTrayIcon,
     title: '克隆项目',
-    code: 'git clone https://github.com/your-repo.git',
+    code: 'git clone https://github.com/citywill/pocket-slide.git',
   },
   {
     icon: CommandLineIcon,
