@@ -18,6 +18,7 @@ export default function Index() {
     <SlidesViewer
       backgroundImage="https://images.unsplash.com/photo-1557682250-33bd709cbe85?w=1920&q=80"
       backgroundOpacity={10}
+      aspectRatio='16/10'
     >
       <Cover />
       <PocketSlideIntro />

@@ -1,47 +1,234 @@
-# Pocket Stack ：AI友好的全栈开发解决方案
+# Pocket Slide ：幻灯片/演示文稿开发模块
 
-基于 **React 19 + TypeScript + Vite + shadcn/ui + PocketBase** 构建的现代化、全栈后台管理系统脚手架。
+基于 PocketStack 的幻灯片/演示文稿开发模块。不同于 slidev、reveal.js 等工具，该项目以AI友好为原则，非常适合以 Vibe Coding 的方式开发演示文稿项目。
 
-本项采用 AI 友好的技术栈，并结合 Shadcn & PocketBase MCP，提供完整、流畅、全栈、98分的 Vibe Coding 开发体验。
+## 特性
 
-![Pocket Stack 示例页面](assets/example-dashboard.png)
+- **幻灯片操作** - 基于 React 的演示文稿组件，支持全屏、键盘导航
+- **URL 状态同步** - 分页状态自动同步到 URL，刷新后保持位置
+- **响应式布局** - 适配不同屏幕尺寸，支持全屏展示
+- **自定义背景** - 支持任意图片作为幻灯片背景，打造个性化演示风格
+- **主题模式** - 支持浅色/深色/系统主题切换，适应不同使用场景
+- **主题颜色** - 支持主题颜色定制（蓝色/绿色/红色/灰度），灵活适配品牌色
+- **模糊效果** - 支持背景模糊和透明度设置，增强视觉层次感
+- **AI IDE 开发** - 支持通过 AI IDE 快速创建幻灯片
 
-## 🌟 核心特性
+## 文件目录结构
 
-- 🎨 **前端特性**：基于 shadcn/ui (Maia 风格) 与 Tailwind CSS v4，支持 Blue、Green、Red、Gray 四种主题颜色切换，内置亮色、深色、跟随系统模式。全站采用 [HeroIcons](https://heroicons.com/) 图标库。自适应 Desktop、Tablet 及 Mobile 布局。
-- 🚀 **后端特性**：原生集成 [PocketBase](https://pocketbase.io/)，覆盖身份验证及数据存储。
-- 📋 **业务示例**：内置个人任务管理系统，支持多状态流转、优先级设定及用户数据隔离。
-- 🎪 **身份认证**：支持“超级管理员”与“普通管理员”登录模式。
-- 🛡️ **权限控制**：
-    - 路由级保护 (`ProtectedRoute`, `AdminOnlyRoute`)。
-    - 侧边栏菜单根据角色动态过滤。
-    - UI 自动根据权限进行降级或隐藏。
-    - 后端 API Rules 确保租户/用户级数据物理隔离。
+该组件可以创建多个演示文稿，每个演示文稿可以包含多个幻灯片。
 
-## 🌐 技术栈
+每个演示文稿的目录放在`src/modules/slides/`目录下，每个目录对应一个演示文稿。
 
-| 领域          | 技术方案                     |
-| :------------ | :--------------------------- |
-| **后端/认证** | PocketBase                   |
-| **前端框架**  | React 19 + TypeScript        |
-| **构建工具**  | Vite                         |
-| **UI 组件**   | shadcn/ui (@base-ui/react)   |
-| **样式**      | Tailwind CSS v4 (Maia Style) |
-| **路由**      | React Router v7              |
-| **图标**      | HeroIcons React              |
+- `src/modules/slides/components/` - 组件目录
+  - `CoverSlide.tsx` - 封面幻灯片组件
+  - `ContentSlide.tsx` - 内容幻灯片组件
+  - `SlidesViewer.tsx` - 幻灯片查看器组件
+  - `Logo.tsx` - Logo 组件
+- `src/modules/slides/slidename/` - 演示文稿目录
+  - `index.tsx` - 演示文稿首页
+  - `Slide1.tsx` - 第一页幻灯片
+  - `Slide2.tsx` - 第二页幻灯片
+- `menu.ts` - 导航菜单组件
+- `routes.tsx` - 路由配置
 
-## 📁 目录结构
+## 组件
 
-```text
-├── pb_schemas/          # PocketBase 集合配置 (JSON)
-└── src/
-    ├── components/
-    │   ├── layout/          # 布局组件 (Sidebar, Header, MainLayout)
-    │   ├── ui/              # shadcn/ui 组件库
-    │   ├── auth-provider.tsx # 权限上下文逻辑
-    │   └── protected-route.tsx # 路由守卫组件
-    ├── pages/               # 业务页面 (login, dashboard, users 等)
-    ├── lib/                 # 工具类 (pocketbase SDK, tailwind utils)
-    ├── App.tsx              # 路由与 Provider 根配置
-    └── main.tsx             # 应用入口
+### SlidesViewer
+
+幻灯片查看器组件，用于包裹所有幻灯片页面。
+
+```tsx
+import SlidesViewer from '@/modules/slides/components/SlidesViewer';
+
+<SlidesViewer>
+  <Slide1 />
+  <Slide2 />
+  <Slide3 />
+</SlidesViewer>
 ```
+
+#### Props
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| children | `React.ReactNode[]` | - | 幻灯片内容数组 |
+| className | `string` | - | 自定义样式类 |
+| showNavigation | `boolean` | `true` | 是否显示导航按钮 |
+| onSlideChange | `(index: number) => void` | - | 翻页回调函数 |
+| backgroundImage | `string` | - | 全局背景图片 URL |
+| backgroundOpacity | `number` | `50` | 背景透明度，0-100 |
+| backgroundBlur | `number` | `0` | 背景模糊程度，单位 px |
+| logoSrc | `string` | `/logo.svg` | Logo 图片路径 |
+
+### CoverSlide
+
+封面幻灯片组件，用于展示封面。
+
+```tsx
+import CoverSlide from '@/modules/slides/components/CoverSlide';
+
+<CoverSlide
+  title="幻灯片标题"
+  subtitle="副标题"
+  author="作者"
+  date="2024-01-01"
+/>
+```
+
+#### Props
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| title | `string` | 主标题 |
+| subtitle | `string` | 副标题 |
+| author | `string` | 作者 |
+| date | `string` | 日期 |
+| className | `string` | 自定义样式类 |
+| backgroundImage | `string` | 背景图片 URL |
+| backgroundOpacity | `number` | 背景透明度，0-100，默认 50 |
+| backgroundBlur | `number` | 背景模糊程度，单位 px，默认 0 |
+
+### ContentSlide
+
+内容幻灯片组件，用于展示正文内容。
+
+```tsx
+import ContentSlide from '@/modules/slides/components/ContentSlide';
+
+<ContentSlide title="页面标题">
+  <div>内容区域</div>
+</ContentSlide>
+```
+
+#### Props
+
+| 属性 | 类型 | 说明 |
+|------|------|------|
+| title | `string` | 页面标题 |
+| children | `React.ReactNode` | 内容区域 |
+| className | `string` | 自定义样式类 |
+| backgroundImage | `string` | 背景图片 URL |
+| backgroundOpacity | `number` | 背景透明度，0-100，默认 50 |
+| backgroundBlur | `number` | 背景模糊程度，单位 px，默认 0 |
+
+## 使用说明
+
+### 键盘操作
+
+- `→` 或 `↓`：下一页
+- `←` 或 `↑`：上一页
+- `Esc`：退出全屏
+
+### 点击操作
+
+- 左右箭头按钮：翻页
+- 全屏按钮：进入/退出全屏
+
+## 示例
+
+参考 `src/modules/slides/example/` 目录下的示例文件。
+
+```tsx
+import SlidesViewer from '@/modules/slides/components/SlidesViewer';
+import CoverSlide from '@/modules/slides/components/CoverSlide';
+import ContentSlide from '@/modules/slides/components/ContentSlide';
+
+function MyPresentation() {
+  return (
+    <SlidesViewer>
+      <CoverSlide
+        title="我的演示"
+        subtitle="这是一个示例"
+        author="作者"
+        date={new Date().toLocaleDateString()}
+      />
+      <ContentSlide title="第一页">
+        <p>内容...</p>
+      </ContentSlide>
+      <ContentSlide title="第二页">
+        <p>更多内容...</p>
+      </ContentSlide>
+    </SlidesViewer>
+  );
+}
+```
+
+### 使用背景图片
+
+```tsx
+<SlidesViewer backgroundImage="https://example.com/bg.jpg" backgroundOpacity={20}>
+  <CoverSlide
+    title="封面标题"
+    backgroundImage="https://example.com/cover-bg.jpg"
+    backgroundOpacity={30}
+  />
+  <ContentSlide title="内容页" backgroundBlur={8}>
+    <p>带模糊背景的内容页</p>
+  </ContentSlide>
+</SlidesViewer>
+```
+
+## URL 参数
+
+SlidesViewer 自动将当前分页同步到 URL 参数 `?slide=N`，刷新页面后会自动恢复到之前的分页位置。
+
+## AI IDE 开发
+
+通过 AI IDE（如 Trae），你可以快速创建幻灯片演示：
+
+1. 在 `src/modules/slides/` 下创建项目目录
+2. 编写提示词，向 AI 描述幻灯片内容
+3. AI 自动生成代码，刷新页面即可预览
+
+```tsx
+// 示例：创建一页"项目成果"幻灯片
+import ContentSlide from '@/modules/slides/components/ContentSlide';
+
+export default function ProjectResults() {
+  return (
+    <ContentSlide title="项目成果">
+      <div className="grid grid-cols-3 gap-4">
+        <div className="p-4 rounded-lg border bg-card">
+          <h4>成果一</h4>
+          <p>成果描述</p>
+        </div>
+        <div className="p-4 rounded-lg border bg-card">
+          <h4>成果二</h4>
+          <p>成果描述</p>
+        </div>
+        <div className="p-4 rounded-lg border bg-card">
+          <h4>成果三</h4>
+          <p>成果描述</p>
+        </div>
+      </div>
+    </ContentSlide>
+  );
+}
+```
+
+## 主题切换
+
+幻灯片支持主题模式和主题颜色切换，使用项目中的 `ThemeProvider` 和 `ModeToggle` 组件：
+
+```tsx
+import { useTheme } from '@/components/theme-provider';
+
+function ThemeSwitcher() {
+  const { theme, setTheme, colorTheme, setColorTheme } = useTheme();
+
+  return (
+    <div>
+      {/* 切换主题模式：light / dark / system */}
+      <button onClick={() => setTheme('dark')}>深色模式</button>
+
+      {/* 切换主题颜色：blue / green / red / gray */}
+      <button onClick={() => setColorTheme('blue')}>蓝色主题</button>
+    </div>
+  );
+}
+```
+## PocketStack
+
+本项目基于 PocketStack 开发。 PocketStack 是一款 AI 友好的全栈开发框架。
+
+http://github.com/citywill/pocket-stack
