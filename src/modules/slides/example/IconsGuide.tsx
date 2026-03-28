@@ -3,17 +3,17 @@ import { StarIcon as StarIconSolid, HeartIcon as HeartIconSolid, BoltIcon as Bol
 import ContentSlide from '../components/ContentSlide';
 
 const outlineIcons = [
-  { name: 'StarIcon' },
-  { name: 'HeartIcon' },
-  { name: 'BoltIcon' },
-  { name: 'FireIcon' },
+  { name: 'StarIcon', Icon: StarIcon },
+  { name: 'HeartIcon', Icon: HeartIcon },
+  { name: 'BoltIcon', Icon: BoltIcon },
+  { name: 'FireIcon', Icon: FireIcon },
 ];
 
 const solidIcons = [
-  { name: 'StarIcon' },
-  { name: 'HeartIcon' },
-  { name: 'BoltIcon' },
-  { name: 'FireIcon' },
+  { name: 'StarIcon', Icon: StarIconSolid },
+  { name: 'HeartIcon', Icon: HeartIconSolid },
+  { name: 'BoltIcon', Icon: BoltIconSolid },
+  { name: 'FireIcon', Icon: FireIconSolid },
 ];
 
 export default function IconsGuide() {
@@ -30,29 +30,23 @@ export default function IconsGuide() {
           <div>
             <p className="text-sm font-medium mb-3 text-muted-foreground">Outline</p>
             <div className="grid grid-cols-2 md:grid-cols-2 gap-4">
-              {outlineIcons.map((item) => {
-                const Icon = { StarIcon, HeartIcon, BoltIcon, FireIcon }[item.name];
-                return (
-                  <div key={item.name} className="flex flex-col items-center gap-2 p-4 rounded-lg border bg-card">
-                    <Icon className="size-8 text-primary" />
-                    <code className="text-xs font-medium">{item.name}</code>
-                  </div>
-                );
-              })}
+              {outlineIcons.map((item) => (
+                <div key={item.name} className="flex flex-col items-center gap-2 p-4 rounded-lg border bg-card">
+                  <item.Icon className="size-8 text-primary" />
+                  <code className="text-xs font-medium">{item.name}</code>
+                </div>
+              ))}
             </div>
           </div>
           <div>
             <p className="text-sm font-medium mb-3 text-muted-foreground">Solid</p>
             <div className="grid grid-cols-2 md:grid-cols-2 gap-4">
-              {solidIcons.map((item) => {
-                const Icon = { StarIcon: StarIconSolid, HeartIcon: HeartIconSolid, BoltIcon: BoltIconSolid, FireIcon: FireIconSolid }[item.name];
-                return (
-                  <div key={item.name} className="flex flex-col items-center gap-2 p-4 rounded-lg border bg-card">
-                    <Icon className="size-8 text-primary" />
-                    <code className="text-xs font-medium">{item.name}</code>
-                  </div>
-                );
-              })}
+              {solidIcons.map((item) => (
+                <div key={item.name} className="flex flex-col items-center gap-2 p-4 rounded-lg border bg-card">
+                  <item.Icon className="size-8 text-primary" />
+                  <code className="text-xs font-medium">{item.name}</code>
+                </div>
+              ))}
             </div>
           </div>
         </div>

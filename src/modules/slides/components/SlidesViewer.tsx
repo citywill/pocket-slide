@@ -127,13 +127,13 @@ export default function SlidesViewer({
 
   const getSlideName = (index: number): string => {
     const slide = slidesArray[index];
-    if (!slide) return '';
+    if (!React.isValidElement(slide)) return '';
     const slideType = slide.type as React.ComponentType<unknown>;
     return slideType?.name;
   };
 
   return (
-    <div className={cn('relative bg-[#888888] flex flex-col h-[calc(100vh-64px)] items-center justify-center', isFullscreen && 'fixed inset-0 z-50 flex h-full')}>
+    <div className={cn('relative bg-[#888888] flex flex-col h-[calc(100vh-64px)] items-center justify-center', className, isFullscreen && 'fixed inset-0 z-50 flex h-full')}>
       {!isFullscreen && (
         <Button
           variant="ghost"
