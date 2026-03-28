@@ -21,9 +21,9 @@ export function Footer({ className }: FooterProps) {
     )}>
       <div className="flex flex-col md:flex-row items-center justify-center gap-2 md:gap-4">
         <div className="flex items-center gap-2">
-          <p dangerouslySetInnerHTML={{ __html: footerText || `&copy; ${new Date().getFullYear()} <strong>Pocket Stack</strong>. All rights reserved.` }} />
+          <p dangerouslySetInnerHTML={{ __html: footerText || `&copy; ${new Date().getFullYear()} <strong>Pocket Slide</strong>. All rights reserved.` }} />
           <a
-            href="https://github.com/citywill/pocket-stack"
+            href="https://github.com/citywill/pocket-slide"
             target="_blank"
             rel="noopener noreferrer"
             className="text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors"
@@ -34,7 +34,7 @@ export function Footer({ className }: FooterProps) {
         </div>
         <span className="hidden md:inline-block text-neutral-300 dark:text-neutral-700">|</span>
         <div className="flex items-center gap-4">
-          <a href="https://citywill.github.io/pocket-stack/" className="hover:text-primary transition-colors">说明文档</a>
+          <a href="https://citywill.github.io/pocket-slide/" className="hover:text-primary transition-colors">说明文档</a>
         </div>
       </div>
     </footer>

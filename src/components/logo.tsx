@@ -15,7 +15,7 @@ export function Logo({ className, showText = true }: LogoProps) {
       {showText && (
         <span
           className="text-xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50"
-          dangerouslySetInnerHTML={{ __html: siteName || 'Pocket <span class="text-primary">Stack</span>' }}
+          dangerouslySetInnerHTML={{ __html: siteName || 'Pocket <span class="text-primary">Slide</span>' }}
         />
       )}
     </div>
