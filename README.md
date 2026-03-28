@@ -168,6 +168,32 @@ function MyPresentation() {
 </SlidesViewer>
 ```
 
+## 主题切换
+
+幻灯片支持主题模式和主题颜色切换，使用项目中的 `ThemeProvider` 和 `ModeToggle` 组件：
+
+```tsx
+import { useTheme } from '@/components/theme-provider';
+
+function ThemeSwitcher() {
+  const { theme, setTheme, colorTheme, setColorTheme } = useTheme();
+
+  return (
+    <div>
+      {/* 切换主题模式：light / dark / system */}
+      <button onClick={() => setTheme('dark')}>深色模式</button>
+
+      {/* 切换主题颜色：blue / green / red / gray */}
+      <button onClick={() => setColorTheme('blue')}>蓝色主题</button>
+    </div>
+  );
+}
+```
+
+## 图标
+
+项目使用 Heroicons 图标库，支持 outline 和 solid 两种风格。
+
 ## URL 参数
 
 SlidesViewer 自动将当前分页同步到 URL 参数 `?slide=N`，刷新页面后会自动恢复到之前的分页位置。
@@ -206,29 +232,26 @@ export default function ProjectResults() {
 }
 ```
 
-## 主题切换
+## Demo 截图
 
-幻灯片支持主题模式和主题颜色切换，使用项目中的 `ThemeProvider` 和 `ModeToggle` 组件：
+![截图](./docs/assets/screenshot.png)
 
-```tsx
-import { useTheme } from '@/components/theme-provider';
+![功能概览](./docs/assets/features.png)
 
-function ThemeSwitcher() {
-  const { theme, setTheme, colorTheme, setColorTheme } = useTheme();
+![背景图片](./docs/assets/bg-image.png)
 
-  return (
-    <div>
-      {/* 切换主题模式：light / dark / system */}
-      <button onClick={() => setTheme('dark')}>深色模式</button>
+![主题](./docs/assets/themes.png)
 
-      {/* 切换主题颜色：blue / green / red / gray */}
-      <button onClick={() => setColorTheme('blue')}>蓝色主题</button>
-    </div>
-  );
-}
-```
+![图标](./docs/assets/icons.png)
+
+![Vibe Coding 开发](./docs/assets/vibe-presentation.png)
+
 ## PocketStack
 
-本项目基于 PocketStack 开发。 PocketStack 是一款 AI 友好的全栈开发框架。
+本项目基于 PocketStack 开发。 PocketStack 是一款 AI 友好的全栈开发框架，助力实现98%的 Vibe Coding。
 
 http://github.com/citywill/pocket-stack
+
+## 微信交流
+
+![微信](./docs/assets/weixin.png)
