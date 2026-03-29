@@ -2,6 +2,8 @@
 
 基于 PocketStack 的幻灯片/演示文稿开发模块。不同于 slidev、reveal.js 等工具，该项目以AI友好为原则，非常适合以 Vibe Coding 的方式开发演示文稿项目。
 
+[完整文档](https://citywill.github.io/pocket-slide/)
+
 ## 特性
 
 - **幻灯片操作** - 基于 React 的演示文稿组件，支持全屏、键盘导航
@@ -11,6 +13,29 @@
 - **主题颜色** - 支持主题颜色定制（蓝色/绿色/红色/灰度），灵活适配品牌色
 - **模糊效果** - 支持背景模糊和透明度设置，增强视觉层次感
 - **AI IDE 开发** - 支持通过 AI IDE 快速创建幻灯片
+
+## 快速开始
+
+### 环境要求
+
+- Node.js 18.0.0+
+- npm 9.0.0+
+
+### 安装部署
+
+```bash
+# 克隆项目
+git clone https://github.com/citywill/pocket-slide.git
+
+# 安装依赖
+npm install
+
+# 启动开发服务器
+npm run dev
+
+# 打开浏览器
+http://localhost:5173
+```
 
 ## 使用说明
 
