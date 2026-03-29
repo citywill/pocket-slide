@@ -5,13 +5,47 @@
 ## 特性
 
 - **幻灯片操作** - 基于 React 的演示文稿组件，支持全屏、键盘导航
-- **URL 状态同步** - 分页状态自动同步到 URL，刷新后保持位置
-- **响应式布局** - 适配不同屏幕尺寸，支持全屏展示
+- **定义屏幕比例** - 适配不同屏幕尺寸，支持全屏展示
 - **自定义背景** - 支持任意图片作为幻灯片背景，打造个性化演示风格
 - **主题模式** - 支持浅色/深色/系统主题切换，适应不同使用场景
 - **主题颜色** - 支持主题颜色定制（蓝色/绿色/红色/灰度），灵活适配品牌色
 - **模糊效果** - 支持背景模糊和透明度设置，增强视觉层次感
 - **AI IDE 开发** - 支持通过 AI IDE 快速创建幻灯片
+
+## 使用说明
+
+### 键盘操作
+
+- `→` 或 `↓`：下一页
+- `←` 或 `↑`：上一页
+- `Esc`：退出全屏
+
+### 点击操作
+
+- 左右箭头按钮：翻页
+- 全屏按钮：进入/退出全屏
+
+## Demo 截图
+
+![截图](./docs/assets/screenshot.png)
+
+![功能概览](./docs/assets/features.png)
+
+![背景图片](./docs/assets/bg-image.png)
+
+![主题](./docs/assets/themes.png)
+
+![图标](./docs/assets/icons.png)
+
+![Vibe Coding 开发](./docs/assets/vibe-presentation.png)
+
+## AI IDE 开发
+
+通过 AI IDE（如 Trae），你可以快速创建幻灯片演示：
+
+1. 在 `src/modules/slides/` 下创建项目目录
+2. 编写提示词，向 AI 描述幻灯片内容
+3. AI 自动生成代码，刷新页面即可预览
 
 ## 文件目录结构
 
@@ -110,141 +144,6 @@ import ContentSlide from '@/modules/slides/components/ContentSlide';
 | backgroundImage | `string` | 背景图片 URL |
 | backgroundOpacity | `number` | 背景透明度，0-100，默认 50 |
 | backgroundBlur | `number` | 背景模糊程度，单位 px，默认 0 |
-
-## 使用说明
-
-### 键盘操作
-
-- `→` 或 `↓`：下一页
-- `←` 或 `↑`：上一页
-- `Esc`：退出全屏
-
-### 点击操作
-
-- 左右箭头按钮：翻页
-- 全屏按钮：进入/退出全屏
-
-## 示例
-
-参考 `src/modules/slides/example/` 目录下的示例文件。
-
-```tsx
-import SlidesViewer from '@/modules/slides/components/SlidesViewer';
-import CoverSlide from '@/modules/slides/components/CoverSlide';
-import ContentSlide from '@/modules/slides/components/ContentSlide';
-
-function MyPresentation() {
-  return (
-    <SlidesViewer>
-      <CoverSlide
-        title="我的演示"
-        subtitle="这是一个示例"
-        author="作者"
-        date={new Date().toLocaleDateString()}
-      />
-      <ContentSlide title="第一页">
-        <p>内容...</p>
-      </ContentSlide>
-      <ContentSlide title="第二页">
-        <p>更多内容...</p>
-      </ContentSlide>
-    </SlidesViewer>
-  );
-}
-```
-
-### 使用背景图片
-
-```tsx
-<SlidesViewer backgroundImage="https://example.com/bg.jpg" backgroundOpacity={20}>
-  <CoverSlide
-    title="封面标题"
-    backgroundImage="https://example.com/cover-bg.jpg"
-    backgroundOpacity={30}
-  />
-  <ContentSlide title="内容页" backgroundBlur={8}>
-    <p>带模糊背景的内容页</p>
-  </ContentSlide>
-</SlidesViewer>
-```
-
-## 主题切换
-
-幻灯片支持主题模式和主题颜色切换，使用项目中的 `ThemeProvider` 和 `ModeToggle` 组件：
-
-```tsx
-import { useTheme } from '@/components/theme-provider';
-
-function ThemeSwitcher() {
-  const { theme, setTheme, colorTheme, setColorTheme } = useTheme();
-
-  return (
-    <div>
-      {/* 切换主题模式：light / dark / system */}
-      <button onClick={() => setTheme('dark')}>深色模式</button>
-
-      {/* 切换主题颜色：blue / green / red / gray */}
-      <button onClick={() => setColorTheme('blue')}>蓝色主题</button>
-    </div>
-  );
-}
-```
-
-## 图标
-
-项目使用 Heroicons 图标库，支持 outline 和 solid 两种风格。
-
-## URL 参数
-
-SlidesViewer 自动将当前分页同步到 URL 参数 `?slide=N`，刷新页面后会自动恢复到之前的分页位置。
-
-## AI IDE 开发
-
-通过 AI IDE（如 Trae），你可以快速创建幻灯片演示：
-
-1. 在 `src/modules/slides/` 下创建项目目录
-2. 编写提示词，向 AI 描述幻灯片内容
-3. AI 自动生成代码，刷新页面即可预览
-
-```tsx
-// 示例：创建一页"项目成果"幻灯片
-import ContentSlide from '@/modules/slides/components/ContentSlide';
-
-export default function ProjectResults() {
-  return (
-    <ContentSlide title="项目成果">
-      <div className="grid grid-cols-3 gap-4">
-        <div className="p-4 rounded-lg border bg-card">
-          <h4>成果一</h4>
-          <p>成果描述</p>
-        </div>
-        <div className="p-4 rounded-lg border bg-card">
-          <h4>成果二</h4>
-          <p>成果描述</p>
-        </div>
-        <div className="p-4 rounded-lg border bg-card">
-          <h4>成果三</h4>
-          <p>成果描述</p>
-        </div>
-      </div>
-    </ContentSlide>
-  );
-}
-```
-
-## Demo 截图
-
-![截图](./docs/assets/screenshot.png)
-
-![功能概览](./docs/assets/features.png)
-
-![背景图片](./docs/assets/bg-image.png)
-
-![主题](./docs/assets/themes.png)
-
-![图标](./docs/assets/icons.png)
-
-![Vibe Coding 开发](./docs/assets/vibe-presentation.png)
 
 ## PocketStack
 

@@ -38,11 +38,11 @@ npm run dev
 http://localhost:5173
 ```
 
-### 创建幻灯片项目
+## 创建幻灯片项目
 
 按照以下三个步骤，快速创建你的幻灯片演示。
 
-#### 1. 创建幻灯片目录
+### 1. 创建幻灯片目录
 
 在 `src/modules/slides/` 下创建模块目录：
 
@@ -54,7 +54,7 @@ src/modules/slides/
     你的幻灯片2.tsx
 ```
 
-#### 2. 创建幻灯片
+### 2. 创建幻灯片
 
 使用 CoverSlide 或 ContentSlide 组件：
 
@@ -70,7 +70,7 @@ export default function MySlide() {
 }
 ```
 
-#### 3. 创建首页，组织幻灯片
+### 3. 创建首页，组织幻灯片
 
 在 Index.tsx 中组合所有幻灯片：
 
@@ -87,8 +87,8 @@ export default function Index() {
 }
 ```
 
-## PocketStack
+## 本项目基于 PocketStack 开发
 
-本项目基于 PocketStack 开发。 PocketStack 是一款 AI 友好的全栈开发框架。
+本项目基于 PocketStack 开发。 PocketStack 是一款 AI 友好的全栈开发框架，助力实现100%的AI友好开发。
 
 http://github.com/citywill/pocket-stack
