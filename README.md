@@ -1,4 +1,4 @@
-# Pocket Slide ：幻灯片/演示文稿开发模块
+# Pocket Slide：AI友好的演示文稿生成工具
 
 基于 PocketStack 的幻灯片/演示文稿开发模块。不同于 slidev、reveal.js 等工具，该项目以AI友好为原则，非常适合以 Vibe Coding 的方式开发演示文稿项目。
 
